@@ -15,8 +15,9 @@
 </template>
 
 <script>
-import axios from 'axios';
-import Global from './../Global';
+import ServiceCoches from './../services/ServiceCoches';
+const service = new ServiceCoches();
+
     export default {
         name: "CochesComponent", 
         data() {
@@ -25,12 +26,9 @@ import Global from './../Global';
             }
         }, 
         mounted() {
-            var request = "/webresources/coches";
-            //LAS VARIABLES POR ENCIMA DE export default
-            //NO UTILIZAN this
-            var url = Global.urlApiCoches + request;
-            axios.get(url).then(response => {
-                this.coches = response.data;
+            //UNA PROMESA NO ES UN METODO, ES UN OBJETO
+            service.getCoches().then(result => {
+                this.coches = result;
             })
         }
     }
